@@ -1,8 +1,8 @@
 // alx-project-0x02/pages/posts.tsx
 
 import { useEffect, useState } from 'react';
-import Header from '../components/layout/Header';
-import PostCard from '../components/common/PostCard';
+import Header from '@/components/layout/Header';
+import PostCard from '@/components/common/PostCard';
 
 export default function Posts() {
 	type Post = {
