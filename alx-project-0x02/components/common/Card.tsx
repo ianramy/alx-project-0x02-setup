@@ -1,6 +1,6 @@
 // alx-project-0x02/components/common/Card.tsx
 
-import { CardProps } from '../../interfaces';
+import { type CardProps } from '../../interfaces';
 
 export default function Card({ title, content }: CardProps) {
     return (

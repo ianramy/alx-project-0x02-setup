@@ -1,6 +1,6 @@
 // alx-project-0x02/components/common/Button.tsx
 
-import { ButtonProps } from '../../interfaces';
+import { type ButtonProps } from '../../interfaces';
 
 export default function Button({ children, size, shape }: ButtonProps) {
     const sizeClasses = {

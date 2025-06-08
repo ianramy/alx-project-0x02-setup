@@ -1,40 +1,53 @@
 // alx-project-0x02/pages/users.tsx
 
-import { useEffect, useState } from 'react';
 import Header from '../components/layout/Header';
 import UserCard from '../components/common/UserCard';
+import { GetStaticProps } from 'next';
 
 type User = {
-    id: number;
-    user: string;
-    name: string;
-    email: string;
-    address: any;
+	id: number;
+	user: string;
+	name: string;
+	email: string;
+	address: any;
 };
 
-export default function Users() {
-    const [users, setUsers] = useState<User[]>([]);
+type Props = {
+	users: User[];
+};
 
-    useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then(res => res.json())
-            .then(data => setUsers(data));
-    }, []);
+export const getStaticProps: GetStaticProps<Props> = async () => {
+	const res = await fetch('https://jsonplaceholder.typicode.com/users');
+	const data: User[] = await res.json();
 
-    return (
-        <>
-            <Header />
-            <div className="p-4 grid gap-4">
-                {users.map(user => (
-                    <UserCard
-                        id={user.id}
-                        user={user.user}
-                        name={user.name}
-                        email={user.email}
-                        address={user.address}
-                    />
-                ))}
-            </div>
-        </>
-    );
+	const users = data.map(u => ({
+		...u,
+		user: u.user || `user${u.id}`,
+	}));
+
+	return {
+		props: {
+			users,
+		},
+	};
+};
+
+export default function Users({ users }: Props) {
+	return (
+		<>
+			<Header />
+			<div className="p-4 grid gap-4">
+				{users.map(user => (
+					<UserCard
+						key={user.id}
+						id={user.id}
+						user={user.user}
+						name={user.name}
+						email={user.email}
+						address={user.address}
+					/>
+				))}
+			</div>
+		</>
+	);
 }
