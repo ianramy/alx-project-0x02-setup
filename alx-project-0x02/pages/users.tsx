@@ -18,18 +18,14 @@ type Props = {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
 	const res = await fetch('https://jsonplaceholder.typicode.com/users');
-	const data: User[] = await res.json();
+    const data: User[] = await res.json();
+    const users = data.slice(0, 5);
 
-	const users = data.map(u => ({
-		...u,
-		user: u.user || `user${u.id}`,
-	}));
-
-	return {
-		props: {
-			users,
-		},
-	};
+    return {
+        props: {
+            users,
+        },
+    };
 };
 
 export default function Users({ users }: Props) {
